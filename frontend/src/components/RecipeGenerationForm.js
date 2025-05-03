@@ -1,22 +1,23 @@
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { MultiSelect } from "primereact/multiselect";
 import { useState, useEffect, useContext } from "react";
 import "./recipe-generation-form.css";
+import { nationalities } from "./utils";
 import { RecipesContext } from "../App";
 
-const RecipeGenerationForm = (onSubmit) => {
-  const [culturesText, setCulturesText] = useState("");
+const RecipeGenerationForm = () => {
   const [ingredientsText, setIngredientsText] = useState("");
-  const [cultures, setCultures] = useState([]);
+  const [cultures, setCultures] = useState(null);
   const [ingredients, setIngredients] = useState([]);
-  const { recipes, setRecipes } = useContext(RecipesContext);
+  const { setRecipes } = useContext(RecipesContext);
 
   const generateRecipes = async (e) => {
     e.preventDefault();
 
     const url = `http://localhost:8000/recipe`;
     const body = {
-      cultures: cultures,
+      cultures: cultures.map((culture) => culture.name),
       ingredients: ingredients,
     };
 
@@ -43,14 +44,6 @@ const RecipeGenerationForm = (onSubmit) => {
 
   useEffect(() => {
     try {
-      setCultures(culturesText.split(","));
-    } catch (e) {
-      console.log("Did not update cultures.");
-    }
-  }, [culturesText]);
-
-  useEffect(() => {
-    try {
       setIngredients(ingredientsText.split(","));
     } catch (e) {
       console.log("Did not update ingredients.");
@@ -59,13 +52,17 @@ const RecipeGenerationForm = (onSubmit) => {
 
   return (
     <form id="recipe-form">
-      <InputText
-        placeholder="Korean, Chinese, etc."
-        value={culturesText}
-        onChange={(e) => setCulturesText(e.target.value)}
+      <MultiSelect
+        filter
+        options={nationalities}
+        value={cultures}
+        onChange={(e) => setCultures(e.value)}
+        optionLabel="name"
+        maxSelectedLabels={5}
+        display="chip"
       />
       <InputText
-        placeholder="apple, roast chicken, pizza, etc."
+        placeholder="Apple, Roast chicken, Pizza, etc."
         value={ingredientsText}
         onChange={(e) => setIngredientsText(e.target.value)}
       />
