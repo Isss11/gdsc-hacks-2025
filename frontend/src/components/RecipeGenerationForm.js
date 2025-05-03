@@ -1,31 +1,39 @@
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./recipe-generation-form.css";
+import { RecipesContext } from "../App";
 
-const RecipeGenerationForm = () => {
+const RecipeGenerationForm = (onSubmit) => {
   const [culturesText, setCulturesText] = useState("");
   const [ingredientsText, setIngredientsText] = useState("");
   const [cultures, setCultures] = useState([]);
   const [ingredients, setIngredients] = useState([]);
+  const { recipes, setRecipes } = useContext(RecipesContext);
 
   const generateRecipes = async (e) => {
     e.preventDefault();
 
     const url = `http://localhost:8000/recipe`;
+    const body = {
+      cultures: cultures,
+      ingredients: ingredients,
+    };
+
     const settings = {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(body),
     };
 
     try {
       const response = await fetch(url, settings);
       const data = await response.json();
 
-      console.log(response, data);
+      setRecipes(data["recipes"]);
     } catch (error) {
       console.log(
         `An error occurred while trying to generate the recipes: ${error}`
