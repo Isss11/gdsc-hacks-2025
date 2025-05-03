@@ -4,7 +4,5 @@ from rest_framework.decorators import api_view
 
 @api_view(['POST'])
 def recipe(request):
-    print(request.method)
-    
     if request.method == "POST":
         return JsonResponse({"name": "Dhruvesh's Daal Makhni"}, status=200)
