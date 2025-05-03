@@ -1,6 +1,7 @@
 import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/viva-light/theme.css";
 import RecipeGenerationForm from "./components/RecipeGenerationForm";
+import Upload from "./components/Upload"
+import "primereact/resources/themes/viva-light/theme.css";
 import Recipes from "./components/Recipes";
 import Header from "./components/Header";
 import { useState, createContext } from "react";
@@ -17,6 +18,7 @@ const App = () => {
           <Header />
           <RecipeGenerationForm />
           <Recipes />
+          <Upload />
         </PrimeReactProvider>
       </RecipesContext.Provider>
     </div>
