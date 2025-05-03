@@ -1,0 +1,157 @@
+Apple
+Apricot
+Avocado
+Banana
+Blackberry
+Blueberry
+Cantaloupe
+Cherry
+Coconut
+Cranberry
+Date
+Dragonfruit
+Durian
+Elderberry
+Fig
+Gooseberry
+Grape
+Grapefruit
+Guava
+Honeydew
+Jackfruit
+Kiwi
+Kumquat
+Lemon
+Lime
+Lychee
+Mango
+Mulberry
+Nectarine
+Orange
+Papaya
+Passionfruit
+Peach
+Pear
+Persimmon
+Pineapple
+Plum
+Pomegranate
+Raspberry
+Starfruit
+Strawberry
+Tangerine
+Ugli fruit
+Watermelon
+Yuzu
+Artichoke
+Arugula
+Asparagus
+Beet
+Bell pepper
+Bok choy
+Broccoli
+Brussels sprouts
+Cabbage
+Carrot
+Cauliflower
+Celery
+Chard
+Collard greens
+Corn
+Cucumber
+Eggplant
+Endive
+Fennel
+Garlic
+Green bean
+Kale
+Leek
+Lettuce
+Mushroom
+Mustard greens
+Okra
+Onion
+Parsnip
+Pea
+Potato
+Pumpkin
+Radish
+Rutabaga
+Spinach
+Squash
+Sweet potato
+Tomato
+Turnip
+Yam
+Zucchini
+Dragonfruit
+Persimmon
+Tangerine
+Watercress
+Taro
+Chayote
+Mango
+Sapodilla
+Passionfruit
+Rambutan
+Lychee
+Starfruit
+Plantain
+Soursop
+Kiwifruit
+Mango
+Paprika
+Cherries
+Butternut squash
+Watermelon
+Papaya
+Celosia
+Shallots
+Rhubarb
+Quince
+Cherries
+Broccolini
+Celeriac
+Kohlrabi
+Dandelion greens
+Jicama
+Chervil
+Daikon
+Cabbage (savoy)
+Kohlrabi
+Chia seeds
+Rutabaga
+Snow peas
+Chives
+Edamame
+Sweet corn
+Pickles
+Poblano pepper
+Scallions
+Black beans
+Red beans
+Lima beans
+Sweet bell peppers
+Banana pepper
+Green pepper
+Yellow pepper
+Blue potato
+Fingerling potatoes
+Sweet corn
+Red cabbage
+Purple yam
+Bamboo shoots
+Romanesco broccoli
+Bok choy
+Kabocha squash
+Daikon radish
+Endive lettuce
+Mung beans
+Beet greens
+Water spinach
+Sprouts
+Nopales
+Alfalfa sprouts
+Jerusalem artichoke
+Tofu
+Tempeh
