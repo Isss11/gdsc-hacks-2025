@@ -1,7 +1,7 @@
 const Header = () => {
   return (
-    <header id="header-bar">
-      <h1>RecipeAI</h1>
+    <header>
+      <h1 id="title">LeftoverMesh</h1>
     </header>
   );
 };

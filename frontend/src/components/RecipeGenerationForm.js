@@ -1,10 +1,11 @@
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+import { InputTextarea } from "primereact/inputtextarea";
 import { MultiSelect } from "primereact/multiselect";
 import { useState, useEffect, useContext } from "react";
 import "./recipe-generation-form.css";
 import { nationalities } from "./utils";
 import { RecipesContext } from "../App";
+import Upload from "./Upload";
 
 const RecipeGenerationForm = () => {
   const [ingredientsText, setIngredientsText] = useState("");
@@ -52,25 +53,41 @@ const RecipeGenerationForm = () => {
 
   return (
     <form id="recipe-form">
-      <MultiSelect
-        filter
-        options={nationalities}
-        value={cultures}
-        onChange={(e) => setCultures(e.value)}
-        optionLabel="name"
-        maxSelectedLabels={5}
-        display="chip"
-      />
-      <InputText
-        placeholder="Apple, Roast chicken, Pizza, etc."
-        value={ingredientsText}
-        onChange={(e) => setIngredientsText(e.target.value)}
-      />
-      <Button
-        label="Generate Recipes"
-        severity="Primary"
-        onClick={generateRecipes}
-      />
+      <div id="recipe-form-panel">
+        <div id="recipe-form-inputs">
+          <h3>Recipe Details</h3>
+          <div id="leftover-food-inputs">
+            <div class="labeled-inputs">
+              <label>Leftover food</label>
+              <InputTextarea
+                placeholder="Enter leftover food by text"
+                value={ingredientsText}
+                onChange={(e) => setIngredientsText(e.target.value)}
+                cols={50}
+              />
+            </div>
+            <Upload />
+          </div>
+          <div className="labeled-inputs">
+            <label>Cultures</label>
+            <MultiSelect
+              filter
+              options={nationalities}
+              value={cultures}
+              onChange={(e) => setCultures(e.value)}
+              optionLabel="name"
+              maxSelectedLabels={5}
+              display="chip"
+              placeholder="Select recipe cultures"
+            />
+          </div>
+          <Button
+            label="Generate Recipes"
+            severity="Primary"
+            onClick={generateRecipes}
+          />
+        </div>
+      </div>
     </form>
   );
 };

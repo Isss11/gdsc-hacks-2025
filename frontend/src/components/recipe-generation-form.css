@@ -1,6 +1,33 @@
+
 #recipe-form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+}
+
+#recipe-form-panel {
+    width: 80%;
+}
+
+#recipe-form-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    justify-content: center;
+    margin-bottom: 0.25rem;
+}
+
+#recipe-form-inputs > * {
+    margin-bottom: 0.25rem;
+}
+
+#leftover-food-inputs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.labeled-inputs {
+    display: flex;
     flex-direction: column;
 }

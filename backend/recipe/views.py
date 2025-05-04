@@ -15,6 +15,7 @@ class Recipe(BaseModel):
 def recipe(request):
     if request.method == "POST":
         body = json.loads(request.body)
+        
         cultures = [culture.capitalize() for culture in body.get("cultures", [])]
         ingredients = [ingredient.capitalize() for ingredient in body.get("ingredients", [])]
 

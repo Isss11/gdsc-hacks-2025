@@ -1,0 +1,13 @@
+#recipes-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-panel {
+    width: 75%;
+}
+
+#recipes-list-header {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
