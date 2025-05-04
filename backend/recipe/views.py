@@ -10,6 +10,11 @@ import io, os
 from pathlib import Path
 import base64
 from django.core.mail import send_mail
+from asgiref.sync import async_to_sync
+from pyppeteer import launch
+from playwright.async_api import async_playwright
+import asyncio
+from django.http import HttpResponse
 
 class Recipe(BaseModel):
   name: str
@@ -42,16 +47,34 @@ def getMatchingFood(content):
             res.append(des)
     return res
 
+async def get_pdf(url, details):
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        context = await browser.new_context()
+        page = await browser.new_page()
+        await page.goto(url, wait_until="networkidle")
+
+        # Step 2: Set localStorage (must match the domain of your actual URL)
+        await page.evaluate(
+            "([key, value]) => localStorage.setItem(key, value)",
+            ["details", json.dumps(details)]
+        )
+        await page.reload(wait_until="networkidle")
+
+        pdf_bytes = await page.pdf(format="A4")
+        await browser.close()
+        return pdf_bytes
+
 
 @api_view(['POST'])
 def image(request):
     if request.method == "POST":
         
         img_data_json = json.loads(request.body)
-        
-    
         stuff, img_data = img_data_json.get('image', []).split(',', 1)
         img_data_binary = base64.b64decode(img_data)
+
         
         result = getMatchingFood(img_data_binary)
         response = {k: k for k in result} 
@@ -67,8 +90,8 @@ def recipe(request):
 
         recipe_prompt = f"Give me a list of recipes (minimum: 3, maximum 9) for the cultures: {cultures} using the ingredients: {ingredients}."
         
-        api_key = os.getenv("GOOGLE_API_KEY")
-        
+        api_key = "AIzaSyAX2TGWxdWD9kAhQq9-WyPB0u3A7uKrtII"
+        print(api_key)
         client = genai.Client(api_key=api_key)
 
         prompt_response = client.models.generate_content(
@@ -123,3 +146,26 @@ def recipe_email(request):
         }
         
         return JsonResponse(response, status=200)
+
+
+@api_view(['POST'])
+def pdf(request):
+    if request.method == "POST":
+        body = json.loads(request.body)
+        url = body.get('pdf_url', [])
+        details = body.get('details', [])
+        print(details)
+    
+        pdf_bytes = asyncio.run(get_pdf(url, details))
+
+
+        response = HttpResponse(
+            pdf_bytes,
+            content_type="application/pdf"
+        )
+
+        response['Content-Disposition'] = 'attachment; filename="output.pdf"'
+
+ 
+        
+        return response

@@ -2,8 +2,9 @@ import { PrimeReactProvider } from "primereact/api";
 import RecipeGenerationForm from "./components/RecipeGenerationForm";
 import "primereact/resources/themes/viva-light/theme.css";
 import Recipes from "./components/Recipes";
+import Recipe from "./components/Recipe"
 import Header from "./components/Header";
-import { useState, createContext, useRef } from "react";
+import { useState, createContext, useRef, useEffect } from "react";
 import { Toast } from "primereact/toast";
 import { ProgressSpinner } from "primereact/progressspinner";
 
@@ -14,6 +15,8 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [ingredientsText, setIngredientsText] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [recipeDownloadPDF, setRecipeDownloadPDF] = useState(null)
+  const [details, setDetails] = useState(null)
   const toast = useRef(null);
 
   const showUploadSuccess = (message) => {
@@ -34,8 +37,21 @@ const App = () => {
     });
   };
 
+  const isPDF = window.location.toString().includes("download-recipe-pdf")
+
+  useEffect(() => {
+      const details = JSON.parse(localStorage.getItem("details"));
+      if (details) {
+        setDetails(details);
+      }
+  }, []);
+
+
+  
   return (
-    <div>
+    <>
+      {isPDF ? (details ? <Recipe details={details} /> : "Nothing to show") :
+      <div>
       {isLoading && <ProgressSpinner id="spinner" />}
       <Toast ref={toast} />
       <RecipesContext.Provider value={{ recipes, setRecipes }}>
@@ -46,6 +62,8 @@ const App = () => {
             showUploadSuccess,
             toastError,
             setIsLoading,
+            recipeDownloadPDF, 
+            setRecipeDownloadPDF
           }}
         >
           <PrimeReactProvider>
@@ -55,7 +73,9 @@ const App = () => {
           </PrimeReactProvider>
         </OptionsContext.Provider>
       </RecipesContext.Provider>
-    </div>
+    </div>}
+    </>
+    
   );
 };
 

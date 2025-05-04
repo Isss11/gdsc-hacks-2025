@@ -5,7 +5,12 @@
 }
 
 .recipe-panel {
-    width: 75%;
+    width: 50%;
+}
+
+.p-panel-header{
+    font-size: large;
+    color: black;
 }
 
 .recipe-share-row {
@@ -13,6 +18,9 @@
     justify-content: right;
     background-color: whitesmoke;
     padding: 0.5rem;
+}
+.p-button {
+    margin-left: 10px;
 }
 
 #recipes-list-header {

@@ -5,12 +5,44 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useContext, useState } from "react";
 import { OptionsContext } from "../App";
+import { saveAs } from 'file-saver';
+
 
 const Recipe = ({ details }) => {
   const { setIsLoading, showUploadSuccess, toastError } =
     useContext(OptionsContext);
   const [recipient, setRecipient] = useState("");
   const [isEmailMode, setIsEmailMode] = useState(false);
+
+  const url = `http://localhost:8000/pdf`;
+
+  const body = {
+    
+    pdf_url: `http://localhost:3000/?download-recipe-pdf`,
+    details: details
+  };
+
+  const settings = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+
+
+  const handleDownload = async () => {
+    console.log("download clicked")
+    localStorage.setItem("details", JSON.stringify(details))
+    await fetch(url, settings).then(res => res.blob())
+    .then(blob => {
+      console.log(blob)
+      saveAs(blob, 'generated.pdf'); // 🎯
+    });
+  
+  }
+  
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -52,7 +84,9 @@ const Recipe = ({ details }) => {
         <Instructions steps={details.steps} />
       </div>
       <div className="recipe-share-row">
+        <Button label="PDF" onClick={handleDownload}/>
         {!isEmailMode && (
+
           <Button label="Email" onClick={() => setIsEmailMode(true)} />
         )}
         {isEmailMode}
@@ -63,7 +97,7 @@ const Recipe = ({ details }) => {
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
             />
-
+    
             <Button label="Send" onClick={sendEmail} />
           </span>
         )}

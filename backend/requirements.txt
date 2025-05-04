@@ -4,3 +4,8 @@ djangorestframework
 google-genai
 google-cloud-vision
 dotenv
+django-puppeteer-pdf
+asgiref
+pyppeteer
+playwright
+asyncio

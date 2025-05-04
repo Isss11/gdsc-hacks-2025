@@ -7,7 +7,8 @@ clean:
 setup-backend: clean
 	$(python) -m venv .env
 	. .env/bin/activate
-	$(pip) install -r backend/requirements.txt
+	$(pip) install -r backend/requirements.txt 
+
 
 start-backend: setup-backend
 	$(python) backend/manage.py runserver
