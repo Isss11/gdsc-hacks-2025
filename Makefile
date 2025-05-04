@@ -8,6 +8,7 @@ setup-backend: clean
 	$(python) -m venv .env
 	. .env/bin/activate
 	$(pip) install -r backend/requirements.txt 
+	playwright install
 
 
 start-backend: setup-backend
