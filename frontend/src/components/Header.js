@@ -9,7 +9,7 @@ const Header = () => {
           alt="LeftoverMesh Logo"
           id="title-logo"
         ></img>
-        <h1>LeftoverMesh</h1>
+        <h1 id="title-font">LeftoverMesh</h1>
       </div>
     </header>
   );
