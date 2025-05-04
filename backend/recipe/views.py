@@ -9,15 +9,13 @@ from dotenv import load_dotenv
 import io, os
 from pathlib import Path
 import base64
+from django.core.mail import send_mail
 
 class Recipe(BaseModel):
   name: str
   cultures: list[str]
   ingredients: list[str]
   steps: list[str]
-
-print("Here")
-print(os.getcwd())
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'key.json'
 
@@ -58,6 +56,7 @@ def image(request):
         result = getMatchingFood(img_data_binary)
         response = {k: k for k in result} 
         return JsonResponse(response, status=200)
+    
 @api_view(['POST'])
 def recipe(request):
     if request.method == "POST":
@@ -86,6 +85,41 @@ def recipe(request):
             "cultures": cultures,
             "ingredients": ingredients,
             "recipes": recipes
+        }
+        
+        return JsonResponse(response, status=200)
+    
+@api_view(['POST'])
+def recipe_email(request):
+    body = json.loads(request.body)
+    recipe = body.get("recipe")
+    recipient = body.get("recipient")
+    
+    email_body = f"""Name: {recipe.get("name")}\nCultures: {", ".join(recipe.get("cultures"))}\n"""
+    
+    email_body += "\nIngredients:\n"
+    
+    for ingredient in recipe.get("ingredients"):
+        email_body += f"- {ingredient}\n"
+    
+    email_body += "\nSteps:\n"
+    
+    for index, step in enumerate(recipe.get("steps")):
+        email_body += f"{index + 1}. {step}\n"
+        
+    email_body += "\n Thank you for using LeftoverMesh."
+    
+    if request.method == "POST":
+        send_mail(
+        subject=f"A {recipe.get('name')} recipe from LeftoverMesh",
+        message=email_body,
+        from_email='leftovermesh@gmail.com',
+        recipient_list=[recipient],
+        fail_silently=False,
+    )
+        
+        response = {
+            "message": f"{recipe.get('name')} sent to {recipient} successfully."
         }
         
         return JsonResponse(response, status=200)
