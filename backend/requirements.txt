@@ -2,3 +2,5 @@ Django
 django-cors-headers
 djangorestframework
 google-genai
+google-cloud-vision
+dotenv
