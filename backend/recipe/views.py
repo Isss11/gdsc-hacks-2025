@@ -111,7 +111,7 @@ def recipe_email(request):
     
     if request.method == "POST":
         send_mail(
-        subject=f"A {recipe.get('name')} recipe from LeftoverMesh",
+        subject=f"{recipe.get('name')} recipe from LeftoverMesh",
         message=email_body,
         from_email='leftovermesh@gmail.com',
         recipient_list=[recipient],

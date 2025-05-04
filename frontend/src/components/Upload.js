@@ -11,7 +11,7 @@ const Upload = () => {
     ingredientsText,
     setIngredientsText,
     showUploadSuccess,
-    showUploadError,
+    toastError,
     isLoading,
   } = useContext(OptionsContext);
 
@@ -56,9 +56,9 @@ const Upload = () => {
         throw Error("Nothing detected.");
       }
 
-      showUploadSuccess();
+      showUploadSuccess("Image upload succeeded.");
     } catch (error) {
-      showUploadError(error);
+      toastError(error);
     }
   };
 

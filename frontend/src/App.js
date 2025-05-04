@@ -16,16 +16,16 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const toast = useRef(null);
 
-  const showUploadSuccess = () => {
+  const showUploadSuccess = (message) => {
     toast.current.show({
       severity: "success",
       summary: "Success",
-      detail: "Image upload succeeded.",
+      detail: message,
       life: 3000,
     });
   };
 
-  const showUploadError = (error) => {
+  const toastError = (error) => {
     toast.current.show({
       severity: "error",
       summary: "Error",
@@ -44,7 +44,7 @@ const App = () => {
             ingredientsText,
             setIngredientsText,
             showUploadSuccess,
-            showUploadError,
+            toastError,
             setIsLoading,
           }}
         >
