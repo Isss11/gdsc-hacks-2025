@@ -5,6 +5,7 @@ import Recipes from "./components/Recipes";
 import Header from "./components/Header";
 import { useState, createContext, useRef } from "react";
 import { Toast } from "primereact/toast";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export const RecipesContext = createContext([]);
 export const OptionsContext = createContext([]);
@@ -12,11 +13,10 @@ export const OptionsContext = createContext([]);
 const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [ingredientsText, setIngredientsText] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useRef(null);
 
   const showUploadSuccess = () => {
-    console.log("SHOWING");
-
     toast.current.show({
       severity: "success",
       summary: "Success",
@@ -36,6 +36,7 @@ const App = () => {
 
   return (
     <div>
+      {isLoading && <ProgressSpinner id="spinner" />}
       <Toast ref={toast} />
       <RecipesContext.Provider value={{ recipes, setRecipes }}>
         <OptionsContext.Provider
@@ -44,6 +45,7 @@ const App = () => {
             setIngredientsText,
             showUploadSuccess,
             showUploadError,
+            setIsLoading,
           }}
         >
           <PrimeReactProvider>

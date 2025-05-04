@@ -20,3 +20,11 @@ body {
 #title-font:hover {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;      
+}

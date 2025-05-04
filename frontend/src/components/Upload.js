@@ -12,6 +12,7 @@ const Upload = () => {
     setIngredientsText,
     showUploadSuccess,
     showUploadError,
+    isLoading,
   } = useContext(OptionsContext);
 
   const uploadHandler = ({ files }) => {
@@ -62,19 +63,22 @@ const Upload = () => {
   };
 
   return (
-    <FileUpload
-      ref={fileRef}
-      mode="basic"
-      name="demo[]"
-      customUpload={true}
-      uploadHandler={uploadHandler}
-      url={"/image"}
-      multiple
-      auto
-      accept="image/*"
-      maxFileSize={100000000000}
-      chooseLabel="Enter food by image"
-    />
+    <div>
+      <FileUpload
+        ref={fileRef}
+        mode="basic"
+        name="demo[]"
+        customUpload={true}
+        uploadHandler={uploadHandler}
+        url={"/image"}
+        multiple
+        auto
+        accept="image/*"
+        disabled={isLoading}
+        maxFileSize={100000000000}
+        chooseLabel="Enter food by image"
+      />
+    </div>
   );
 };
 

@@ -8,7 +8,8 @@ import Upload from "./Upload";
 import { OptionsContext, RecipesContext } from "../App";
 
 const RecipeGenerationForm = () => {
-  const { ingredientsText, setIngredientsText } = useContext(OptionsContext);
+  const { ingredientsText, setIngredientsText, setIsLoading, isLoading } =
+    useContext(OptionsContext);
   const [cultures, setCultures] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const { setRecipes } = useContext(RecipesContext);
@@ -32,6 +33,7 @@ const RecipeGenerationForm = () => {
     };
 
     try {
+      setIsLoading(true);
       const response = await fetch(url, settings);
       const data = await response.json();
 
@@ -41,6 +43,8 @@ const RecipeGenerationForm = () => {
         `An error occurred while trying to generate the recipes: ${error}`
       );
     }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -57,7 +61,7 @@ const RecipeGenerationForm = () => {
         <div id="recipe-form-inputs">
           <h3>Recipe Details</h3>
           <div id="leftover-food-inputs">
-            <div class="labeled-inputs">
+            <div className="labeled-inputs">
               <label>Leftover food</label>
               <InputTextarea
                 placeholder="Enter food by text"
@@ -84,6 +88,7 @@ const RecipeGenerationForm = () => {
           <Button
             label="Generate Recipes"
             severity="success"
+            disabled={isLoading}
             onClick={generateRecipes}
           />
         </div>
