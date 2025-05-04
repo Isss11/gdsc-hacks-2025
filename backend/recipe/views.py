@@ -4,6 +4,11 @@ import json
 from google import genai
 from pydantic import BaseModel
 import os
+from google.cloud import vision
+from dotenv import load_dotenv
+import io, os
+from pathlib import Path
+import base64
 
 class Recipe(BaseModel):
   name: str
@@ -11,6 +16,48 @@ class Recipe(BaseModel):
   ingredients: list[str]
   steps: list[str]
 
+print("Here")
+print(os.getcwd())
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'key.json'
+
+food_list = {}
+with open("fruits_vegetables_list.txt", 'r') as f:
+    for line in f:
+        key, val = line.rstrip().lower(), line.rstrip().lower()
+        food_list[key] = val
+
+client = vision.ImageAnnotatorClient()
+
+
+def getMatchingFood(content):
+    res = []
+    image = vision.Image(content=content)
+    response = client.label_detection(image=image)
+    labels = response.label_annotations
+
+    for label in labels:
+        des = label.description.lower()
+        score = round(label.score, 2)
+        
+        if (des in food_list):
+            res.append(des)
+    return res
+
+
+@api_view(['POST'])
+def image(request):
+    if request.method == "POST":
+        
+        img_data_json = json.loads(request.body)
+        
+    
+        stuff, img_data = img_data_json.get('image', []).split(',', 1)
+        img_data_binary = base64.b64decode(img_data)
+        
+        result = getMatchingFood(img_data_binary)
+        response = {k: k for k in result} 
+        return JsonResponse(response, status=200)
 @api_view(['POST'])
 def recipe(request):
     if request.method == "POST":

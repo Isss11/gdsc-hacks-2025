@@ -60,7 +60,7 @@ const RecipeGenerationForm = () => {
             <div class="labeled-inputs">
               <label>Leftover food</label>
               <InputTextarea
-                placeholder="Enter leftover food by text"
+                placeholder="Enter food by text"
                 value={ingredientsText}
                 onChange={(e) => setIngredientsText(e.target.value)}
                 cols={50}
@@ -83,7 +83,7 @@ const RecipeGenerationForm = () => {
           </div>
           <Button
             label="Generate Recipes"
-            severity="Primary"
+            severity="success"
             onClick={generateRecipes}
           />
         </div>
