@@ -2,11 +2,12 @@ import { FileUpload } from "primereact/fileupload";
 
 import { Button } from 'primereact/button';
 
-import { useContext} from 'react';
+import {useRef, useContext} from 'react';
 import {OptionsContext } from "../App";
 const Upload = () => {
   const url = `http://localhost:8000/image`;
 
+  const fileRef = useRef(null);
 
     const { ingredientsText, setIngredientsText} = useContext(OptionsContext);
 
@@ -40,11 +41,13 @@ const Upload = () => {
             foodStr += val + (i != food.length - 1? ", ": "")  
         })
         setIngredientsText(ingredientsText + foodStr)
+        fileRef.current.clear();
         console.log(data)
   };
 
   return (
     <FileUpload
+        ref={fileRef}
       mode="basic"
       name="demo[]"
       customUpload={true}
