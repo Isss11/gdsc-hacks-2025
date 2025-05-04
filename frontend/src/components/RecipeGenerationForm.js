@@ -4,11 +4,11 @@ import { MultiSelect } from "primereact/multiselect";
 import { useState, useEffect, useContext } from "react";
 import "./recipe-generation-form.css";
 import { nationalities } from "./utils";
-import { RecipesContext } from "../App";
 import Upload from "./Upload";
+import {OptionsContext, RecipesContext } from "../App";
 
 const RecipeGenerationForm = () => {
-  const [ingredientsText, setIngredientsText] = useState("");
+  const { ingredientsText, setIngredientsText} = useContext(OptionsContext);
   const [cultures, setCultures] = useState(null);
   const [ingredients, setIngredients] = useState([]);
   const { setRecipes } = useContext(RecipesContext);
