@@ -76,7 +76,7 @@ const Upload = () => {
         accept="image/*"
         disabled={isLoading}
         maxFileSize={100000000000}
-        chooseLabel="Enter food by image"
+        chooseLabel="Image"
       />
     </div>
   );

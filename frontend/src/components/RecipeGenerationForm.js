@@ -67,7 +67,6 @@ const RecipeGenerationForm = () => {
                 placeholder="Enter food by text"
                 value={ingredientsText}
                 onChange={(e) => setIngredientsText(e.target.value)}
-                cols={50}
               />
             </div>
             <Upload />

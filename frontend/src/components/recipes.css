@@ -11,6 +11,8 @@
 .recipe-share-row {
     display: flex;
     justify-content: right;
+    background-color: whitesmoke;
+    padding: 0.5rem;
 }
 
 #recipes-list-header {
